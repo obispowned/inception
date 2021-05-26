@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+
+  nginx:
+    build: /nginx
+    container_name: nginx
+    ports:
+      - 443:443
+
+  wordpress:
+    build: /wordpress
+    container_name: wordpress
+    ports:
+      - 
+    
+  mariadb:
+    build: /mariadb
+    container_name: mariadb
+    ports:
+      -
+        volumes: 
+          # siempre volumenes en las BBDD para persistencia
