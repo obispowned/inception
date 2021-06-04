@@ -1,0 +1,29 @@
+server{
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	ssl on;
+	ssl_certificate /etc/ssl/certs/localhost.crt;
+	ssl_certificate_key /etc/ssl/private/localhost.key;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+	ssl_prefer_server_ciphers on;
+
+	
+	root /var/www/html;
+
+	index index.html index.htm index.nginx-debian.html index.php
+
+	location / {
+		try_files $uri $uri/ = 404;
+	}
+
+	location ~ .php$ {
+		fastcgi_pass wordpress:9000
+		include snippets/fastcgi-php.conf;
+	}
+
+	location /wordpress {
+		proxy_pass http://wordpress:9000;
+	}
+
+}

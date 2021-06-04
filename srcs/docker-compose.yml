@@ -3,21 +3,20 @@ version: '3.1'
 services:
 
   nginx:
-    build: /nginx
+    build: requirements/nginx
     container_name: nginx
     ports:
+      - 80:80
       - 443:443
+    restart: always
+
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+
 
   wordpress:
-    build: /wordpress
+    depends_on:
+      - mariadb
+    build: requirements/wordpress
     container_name: wordpress
-    ports:
-      - 
-    
-  mariadb:
-    build: /mariadb
-    container_name: mariadb
-    ports:
-      -
-        volumes: 
-          # siempre volumenes en las BBDD para persistencia
